@@ -55,3 +55,21 @@ def test_evaluate_expression_errors():
     expr = "2r-1"
     result = ivsmath.evaluate_expression(expr)
     assert result == "Math error"
+
+
+def test_evaluate_expression_parenthersis():
+    expr = "2*(4+5)"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == 18.0
+
+    expr = "2*(-2)"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == -4.0
+
+    expr = "(6-4)r4"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == 2.0
+
+    expr = "(2*3)!"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == 720.0
