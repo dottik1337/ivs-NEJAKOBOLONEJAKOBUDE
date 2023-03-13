@@ -1,0 +1,39 @@
+////////////////////////////////////////////////////////////////////////
+//                        Plán projektu z IVS                         //
+//                        NEJAKOBOLONEJAKOBUDE                        //
+//                                                                    //
+//                     Jozef Gallo - xgallo06 (Teamleader)            //
+//                     Matúš Paška - xpaska05                         //
+//                     Sophia Halásová - xhalas14                     //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+Termíny:
+    Do 12.3. vytvoriť GIT
+    Do 25.3. mockupy
+    Do 10.4. musí byť matematicka knižnica + gui
+    Do 20.4. musí byť smerodajná odchylka
+    DEADLINE: 26.4.2023 o 7:00
+
+
+Práca:
+    xgallo06    - matematická knižnica, mockup, testy
+    xpaska05    - gui, mockup, inštalácia, Makefile
+    xhalas14    - dokumentácia + manuál, mockup, profiling
+
+
+Komunikácia:
+    -osobné stretnutia každú sobotu
+    -komunikačný kanál: osobne + discord
+
+Pravidlá:
+    -žiadne nadávky v gite
+    -komentáre pred každou funkciou
+    -"čím skôr, tým lepšie"
+    -ak nebude dodržaný deadline na čiastočné úlohy
+    -Sme traja takže demokracia funguje!
+
+Nástroje:
+    Jazyk: Python 3.11.2
+    GUI: PyQt5
+    Git: https://github.com/dottik1337/ivs-NEJAKOBOLONEJAKOBUDE
