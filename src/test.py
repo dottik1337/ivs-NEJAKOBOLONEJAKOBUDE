@@ -38,9 +38,9 @@ def test_evaluate_expression():
     result = ivsmath.evaluate_expression(expr)
     assert result == -84.0
 
-    expr = "-5+-5"
+    expr = "-5+(-5)"
     result = ivsmath.evaluate_expression(expr)
-    assert result == 0.0
+    assert result == -10.0
 
     expr = "2r4"
     result = ivsmath.evaluate_expression(expr)
@@ -50,11 +50,11 @@ def test_evaluate_expression():
 def test_evaluate_expression_errors():
     expr = "5/0"
     result = ivsmath.evaluate_expression(expr)
-    assert result == "Math error"
+    assert result == "Math Error"
 
-    expr = "2r-1"
+    expr = "2r(-1)"
     result = ivsmath.evaluate_expression(expr)
-    assert result == "Math error"
+    assert result == "Math Error" 
 
 
 def test_evaluate_expression_parenthersis():

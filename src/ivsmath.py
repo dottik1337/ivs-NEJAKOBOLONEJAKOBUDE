@@ -3,7 +3,7 @@
 # @authors
 # @brief Handling of math expressions
 
-# expression = input()
+expression = "1558!"  # input()
 
 
 class Precedence():
@@ -45,6 +45,7 @@ class Operator():
             case "!":
                 return Precedence.FAC
             case _:
+                print(self.char)
                 print("error Operator.get_eval")
                 return 0
 
@@ -52,6 +53,8 @@ class Operator():
         return self.get_eval() <= other.get_eval()
 
     def __ge__(self, other):
+        if self.char == "(":
+            return False
         return self.get_eval() >= other.get_eval()
 
 
@@ -68,7 +71,10 @@ def get_infix(string):
     for char in string:
         if char.isdigit() or char == '.':
             number += char
-        elif char in operators:
+        # zabezpecuje ze minusove cisla budu minusove
+        elif char == "-" and (len(infix) == 0 or (infix[-1] == "(" and number == "")):
+            number += char
+        elif char in operators or char in "()":
             if number != "":
                 number = float(number)
                 infix.append(number)
@@ -93,6 +99,12 @@ def get_postfix(infix):
     for i in infix:
         if isinstance(i, float):
             postfix.append(i)
+        elif i == "(":
+            stack.append(i)
+        elif i == ")":
+            while stack[-1] != "(":
+                postfix.append(stack.pop())
+            stack.pop()
         else:
             while (len(stack) != 0 and Operator(stack[-1]) >= Operator(i)):
                 postfix.append(stack.pop())
@@ -112,6 +124,7 @@ def division(a, b):
     """
     if a == 0:
         print("division by zero in division")
+        raise ValueError
     else:
         return b/a
 
@@ -124,12 +137,14 @@ def radical(a, b):
     @param a The radicand
     @return the @p a root of @p b
     """
-    if b > 0:
+    if a < 0:
         print("Value error in radical function")
-    elif a == 0:
+        raise ValueError
+    elif b == 0:
         print("Value error in radical function")
+        raise ValueError
     else:
-        return b ** (1.0/a)
+        return a ** (1.0/b)
 
 
 def factorial(a):
@@ -141,6 +156,10 @@ def factorial(a):
     """
     if a % 1 != 0 or a < 0:
         print("Value error in factorial function")
+        raise ValueError
+    elif a > 1558:  # max number that can be calculated using this algorithm
+        print("Value error in factorial function")
+        raise ValueError
     sum = 1
     for i in range(2, int(a)+1):
         sum *= i
@@ -197,9 +216,13 @@ def evaluate_expression(expression):
     @param expression The math expression to evaluate
     @return result
     """
-    infix = get_infix(expression)
-    postfix = get_postfix(infix)
-    return evaluate_postfix(postfix)
+    try:
+        infix = get_infix(expression)
+        postfix = get_postfix(infix)
+        eval = evaluate_postfix(postfix)
+    except:
+        return "Math Error"
+    return eval
 
 
-# print("print:", evaluate_expression(expression))
+print("print:", evaluate_expression(expression))
