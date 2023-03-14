@@ -30,7 +30,7 @@ Pravidlá:
     -žiadne nadávky v gite
     -komentáre pred každou funkciou
     -"čím skôr, tým lepšie"
-    -ak nebude dodržaný deadline na čiastočné úlohy
+    -ak nebude dodržaný deadline na čiastočné úlohy tak zasadne tímová rada a problém vyriešime spoločne
     -Sme traja takže demokracia funguje!
 
 Nástroje:
