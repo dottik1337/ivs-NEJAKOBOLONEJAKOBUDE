@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 sys.path.append('/calculator')
 print(sys.path)
-import kniznica
+import ivsmath
 
 buffer = ''
 pow = False
@@ -308,7 +308,7 @@ class Ui_MainWindow(object):
             global buffer
             convert()    
             print(buffer)
-            buffer = kniznica.evaluate_expression(buffer)
+            buffer = ivsmath.evaluate_expression(buffer)
             buffer = str(buffer)
             self.label.setText(buffer)
                                
