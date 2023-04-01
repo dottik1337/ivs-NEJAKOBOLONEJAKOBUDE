@@ -297,7 +297,7 @@ class Ui_MainWindow(object):
             for i in range(0, len(buffer), 1):
                 
                 if buffer[i] in x:
-                    if i-1 >= 0 and buffer[i-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ')']:
+                    if i-1 >= 0 and buffer[i-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ')'] and buffer[i] in ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹", '⁽', '!']:
                         newbuffer+='^' 
                     newbuffer+=x[str(buffer[i])]
                 else:
@@ -306,6 +306,12 @@ class Ui_MainWindow(object):
             
         def equals():
             global buffer
+            global pow
+            global index
+            global lenpow
+            lenpow = 0
+            index = -2
+            pow = False
             convert()    
             print(buffer)
             buffer = ivsmath.evaluate_expression(buffer)
