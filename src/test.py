@@ -73,3 +73,11 @@ def test_evaluate_expression_parenthersis():
     expr = "(2*3)!"
     result = ivsmath.evaluate_expression(expr)
     assert result == 720.0
+
+def test_evaluate_expression_sinus():
+    expr = "(180)s"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == 0
+    expr = "5!s"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == 0.8660254038

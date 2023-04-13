@@ -3,7 +3,7 @@
 # @authors
 # @brief Handling of math expressions
 
-#expression = 5-1 #input()
+expression = "5!s" #input()
 
 
 class Precedence():
@@ -18,6 +18,7 @@ class Precedence():
     POW = 3
     RADICAL = 3
     FAC = 4
+    SIN = 4
 
 
 class Operator():
@@ -43,6 +44,8 @@ class Operator():
             return Precedence.RADICAL
         elif self.char == "!":
             return Precedence.FAC
+        elif self.char == "s":
+            return Precedence.SIN
         else:
             print(self.char)
             print("error Operator.get_eval")
@@ -66,12 +69,12 @@ def get_infix(string):
     """
     infix = []
     number = ""
-    operators = ["+", "-", "*", "/", "^", "r", "!", "?"]
+    operators = ["+", "-", "*", "/", "^", "r", "!", "s"]
     for char in string:
         if char.isdigit() or char == '.':
             number += char
         # zabezpecuje ze minusove cisla budu minusove
-        elif char == "-" and (len(infix) == 0 or (infix[-1] == "(" and number == "")):
+        elif char == "-" and ((len(infix) == 0 and number == "") or (len(infix) != 0 and infix[-1] == "(" and number == "")):
             number += char
         elif char in operators or char in "()":
             if number != "":
@@ -81,6 +84,7 @@ def get_infix(string):
             infix.append(char)
         else:
             print("Error get_infix")
+            raise ValueError
     if number != "":
         infix.append(float(number))
     return infix
@@ -122,7 +126,7 @@ def division(a, b):
     @returns @p b / @p a
     """
     if a == 0:
-        print("division by zero in division")
+        print("Division by zero")
         raise ValueError
     else:
         return b/a
@@ -136,7 +140,7 @@ def radical(a, b):
     @param a The radicand
     @return the @p a root of @p b
     """
-    if a < 0:
+    if b%2 == 0 and a < 0:
         print("Value error in radical function")
         raise ValueError
     elif b == 0:
@@ -173,6 +177,29 @@ def power(a,b):
     """
     return b**a
 
+def sin(x):
+    """
+    @brief The function calculates the sine of an angle in degrees using the Taylor series approximation.
+    
+    @param x The input angle in degrees for which the sine value needs to be calculated.
+    @return the sine value of the input angle in radians, rounded to 10 decimal places.
+    """
+    pi = 3.14159265359
+    x = (x * pi) / 180
+    term = x
+    denominator = 1.0
+    result = 0.0
+    i = 1.0
+    div = 5
+    while(abs(div) > 0.00000000001):
+        div = term/float(denominator)
+        result += div
+        term *= -(x*x)
+        denominator *= (i+1)*(i+2)
+        i += 2
+
+    return round(result,10)
+
 def handle_operation(stack, operator):
     """
     @brief It handles the operations for evaluate_postfix
@@ -194,6 +221,8 @@ def handle_operation(stack, operator):
         tmp = radical(stack.pop(), stack.pop())
     elif operator == "!":
         tmp = factorial(stack.pop())
+    elif operator == "s":
+        tmp = sin(stack.pop())
     else:
         print("Not implemented yet")
     stack.append(tmp)
@@ -226,9 +255,11 @@ def evaluate_expression(expression):
         infix = get_infix(expression)
         postfix = get_postfix(infix)
         eval = evaluate_postfix(postfix)
+    except ZeroDivisionError:
+        return "Division by zero"
     except:
         return "Math Error"
     return eval
 
 
-#print("print:", evaluate_expression(expression))
+print("print:", evaluate_expression(expression))
