@@ -252,7 +252,6 @@ def format_expr(x):
     MAX_N_LEN=3
     MAX_DEC_LEN=7
     try:
-        nat_len=len(str(x).split(".")[0])
         dec_len=len(str(x).split(".")[1])
         dec=str(x).split(".")[1]
     except:
@@ -267,9 +266,9 @@ def format_expr(x):
         else:
             break
 
-    if((dec_len == 1 and str(x).split(".")[1][0] == "0") or (zero_len == dec_len)): #ak je za bodkou iba nula
+    if((zero_len == dec_len)): #ak je za bodkou iba nula
         return int(x)
-    elif(zero_len > MAX_DEC_LEN or nat_len > MAX_N_LEN):
+    elif(zero_len > MAX_DEC_LEN):
         return f'{x:e}'
     else:
         return x
