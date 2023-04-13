@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
                 self.label.setText(buffer)
                 if len(buffer) > 0:
                     lastChar = buffer[len(buffer) - 1]
-                    if lastChar in ['+', '-', '*', '÷']:
+                    if lastChar in ['+', '-', 'x', '÷']:
                         self.buttoneq.setEnabled(False)
                     else: 
                         self.buttoneq.setEnabled(True)
@@ -160,7 +160,7 @@ class Ui_MainWindow(object):
             else:            
                 pow = False
                 lenpow = 0
-                if lastChar in ['+', '-', '*', '÷', '√']:
+                if lastChar in ['+', '-', 'x', '÷', '√']:
                         buffer=buffer
                         
                 elif lastChar == '(' and znamienko in ['+', 'x', '÷']:
@@ -331,9 +331,9 @@ class Ui_MainWindow(object):
             ciarka = False
             for i in range (len(buffer)-1, -1, -1):
                 
-                if buffer[i] == '.':
+                if buffer[i] == '.' or buffer[len(buffer)-1] in ['+', '-', 'x', '÷', '(', ')', '!']:
                     ciarka = True
-                elif buffer[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                elif buffer[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] :
                     break 
             
             
@@ -350,13 +350,18 @@ class Ui_MainWindow(object):
             global buffer
             newbuffer = ''
             x = { '⁽' : '(', '⁾' : ')', '⁰' : '0', '¹' : '1', '²' : '2', '³' : '3', '⁴' : '4', '⁵' : '5', 
-                 '⁶' : '6', '⁷' : '7', '⁸' : '8', '⁹' : '9',   '⁺' : '+' , '⁻' : '-', 'ˣ' : 'x' , '÷' : '/', '√' : 'r'}
+                 '⁶' : '6', '⁷' : '7', '⁸' : '8', '⁹' : '9',   '⁺' : '+' , '⁻' : '-', 'ˣ' : '*' , '÷' : '/', '√' : 'r', 'x' : '*'}
             
             for i in range(0, len(buffer), 1):
                 
                 if buffer[i] in x:
                     if i-1 >= 0 and buffer[i-1] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ')'] and buffer[i] in ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹", '⁽', '!']:
-                        newbuffer+='^' 
+                        newbuffer+='^'
+                    if buffer[i] == '√' and i == 0:
+                        newbuffer+='2'
+                    elif buffer[i] == '√' and buffer[i-1] not in ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"]:
+                        newbuffer+='2'
+                    
                     newbuffer+=x[str(buffer[i])]
                 else:
                     newbuffer+=buffer[i]    
@@ -528,7 +533,7 @@ class Ui_MainWindow(object):
         self.buttondel.setText(_translate("MainWindow", "CE"))
         self.buttonplus.setText(_translate("MainWindow", "+"))
         self.buttonsub.setText(_translate("MainWindow", "-"))
-        self.buttonmul.setText(_translate("MainWindow", "*"))
+        self.buttonmul.setText(_translate("MainWindow", "x"))
         self.buttondiv.setText(_translate("MainWindow", " ÷"))
         self.buttonpow.setText(_translate("MainWindow", "x^y"))
         self.buttonodmocnina.setText(_translate("MainWindow", "√x"))
