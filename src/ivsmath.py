@@ -3,7 +3,7 @@
 # @authors
 # @brief Handling of math expressions
 
-#expression = input()
+#expression = 5-1 #input()
 
 
 class Precedence():
@@ -180,23 +180,22 @@ def handle_operation(stack, operator):
     @param stack a list of numbers
     @param operator The operator to be applied to the stack.
     """
-    match operator:
-        case "+":
-            tmp = stack.pop()+stack.pop()
-        case "-":
-            tmp = -(stack.pop())+stack.pop()
-        case "*":
-            tmp = stack.pop()*stack.pop()
-        case "/":
-            tmp = division(stack.pop(), stack.pop())
-        case "^":
-            tmp = power(stack.pop(),stack.pop())
-        case "r":
-            tmp = radical(stack.pop(), stack.pop())
-        case "!":
-            tmp = factorial(stack.pop())
-        case _:
-            print("Not implemented yet")
+    if operator == "+":
+        tmp = stack.pop() + stack.pop()
+    elif operator == "-":
+        tmp = -stack.pop() + stack.pop()
+    elif operator == "*":
+        tmp = stack.pop() * stack.pop()
+    elif operator == "/":
+        tmp = division(stack.pop(), stack.pop())
+    elif operator == "^":
+        tmp = power(stack.pop(), stack.pop())
+    elif operator == "r":
+        tmp = radical(stack.pop(), stack.pop())
+    elif operator == "!":
+        tmp = factorial(stack.pop())
+    else:
+        print("Not implemented yet")
     stack.append(tmp)
 
 
