@@ -14,6 +14,13 @@ sys.path.append('/calculator')
 print(sys.path)
 import ivsmath
 
+"""
+@ Global param buffer is used for storing the string that was written in the calculator
+@ Global param buffer is used to indicate if the user is writing a power
+@ Global param lenpow is used for storing the length of the power
+@ Global param index is uesd for inidicataing where the root should be placed in the buffer
+"""
+
 buffer = ''
 pow = False
 lenpow = 0
@@ -21,11 +28,22 @@ index = -2
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        
         def superscript(p):
+            """
+                @ brief function converts a number to its superscript
+                @ param intiger the number that wants to be converted to superscipt 
+            """
             superscripts = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹",]
             return ''.join([superscripts[int(char)] for char in str(p)])
         
         def funkcia(cislo):
+            """
+            @ brief function adds a number to the buffer and displays the new buffer in the calculator
+            if the user is writing a power it adds the supercript of that number to the buffer
+            @ param the number that wants to be added to the buffer
+            """
+            
             global buffer
             global pow
             global lenpow
@@ -62,6 +80,10 @@ class Ui_MainWindow(object):
             self.buttoneq.setEnabled(True)
         
         def delete():
+            """
+            @ brief function deletes the last value stored in the buffer or if the 
+            last value in the buffer is the n root it deletes the root and the superscript of the root
+            """
             global buffer
             global lenpow
             global pow
@@ -99,6 +121,11 @@ class Ui_MainWindow(object):
                    
           
         def znamienko(znamienko):
+            """
+            @brief the function adds the sign to the end of the buffer or its superscript 
+            @ param the sign that wants to be added
+            """
+            
             global buffer
             global pow
             global index
@@ -147,6 +174,9 @@ class Ui_MainWindow(object):
                     
                         
         def pow():
+            """
+            @brief function sets global variable pow to true
+            """
             global pow
             if len(buffer) > 0:
                 lastChar = buffer[len(buffer) - 1]
@@ -157,6 +187,9 @@ class Ui_MainWindow(object):
                 pow=True
             
         def clear():
+            """
+            @brief function clears buffer
+            """
             global buffer
             global pow
             global index
@@ -169,6 +202,9 @@ class Ui_MainWindow(object):
             self.label.setText(buffer)
         
         def leftbracket():
+            """
+            @brief function adds left bracket or its superscipt to the end of the buffer
+            """
             global buffer
             global pow
             global lenpow
@@ -185,6 +221,9 @@ class Ui_MainWindow(object):
             self.label.setText(buffer)
         
         def rightbracket():
+            """
+            @brief function adds right bracket or its superscipt to the end of the buffer
+            """
             global buffer
             global pow
             global lenpow
@@ -215,6 +254,9 @@ class Ui_MainWindow(object):
             else: buffer = buffer
             
         def odmocnina():
+            """
+            @brief function adds square root and a left bracket to the end of the buffer
+            """
             global buffer
             global pow
             if len(buffer) > 0:
@@ -226,6 +268,11 @@ class Ui_MainWindow(object):
                 self.label.setText(buffer)
                 
         def ntaodmocnina():
+            """
+            @brief funtion adds root to the first viable positon in the buffer or if 
+            there is a right bracket it finds a left bracket so that the number of 
+            left brackets = right brackets and adds the root to the first viable position 
+            """
             global buffer
             global pow
             global index
@@ -259,6 +306,10 @@ class Ui_MainWindow(object):
             self.label.setText(buffer)
             
         def faktorial():
+            """
+            @brief function adds ! to the end of the buffer
+            """
+            
             global buffer
             global pow
             
@@ -272,6 +323,9 @@ class Ui_MainWindow(object):
             else: buffer=buffer
                     
         def dash():
+            """
+            @brief function adds . to the end of the buffer
+            """
             global buffer
             global pow
             ciarka = False
@@ -289,6 +343,10 @@ class Ui_MainWindow(object):
             else: buffer = buffer
             
         def convert():
+            """
+            @brief function converts the buffer so it can be processed by the library
+            """
+            
             global buffer
             newbuffer = ''
             x = { '⁽' : '(', '⁾' : ')', '⁰' : '0', '¹' : '1', '²' : '2', '³' : '3', '⁴' : '4', '⁵' : '5', 
@@ -305,6 +363,11 @@ class Ui_MainWindow(object):
             buffer = newbuffer 
             
         def equals():
+            """
+            @brief function converts the buffer so it can be used by the math library 
+            and then stores the result inside the buffer
+            """
+            
             global buffer
             global pow
             global index
