@@ -151,7 +151,7 @@ class Ui_MainWindow(object):
             if len(buffer) > 0:
                 lastChar = buffer[len(buffer) - 1]
             else: lastChar=''
-            if lastChar in ['+', '-', 'x', '÷', '', '(', '!', ','] or len(buffer) == 0:
+            if lastChar in ['+', '-', 'x', '÷', '', '(', '!', '.'] or len(buffer) == 0:
                 pow=False
             else:
                 pow=True
@@ -277,14 +277,14 @@ class Ui_MainWindow(object):
             ciarka = False
             for i in range (len(buffer)-1, -1, -1):
                 
-                if buffer[i] == ',':
+                if buffer[i] == '.':
                     ciarka = True
                 elif buffer[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
                     break 
             
             
             if ciarka == False and pow == False and len(buffer) != 0:
-                buffer += ','
+                buffer += '.'
                 self.label.setText(buffer)
             else: buffer = buffer
             
@@ -474,7 +474,7 @@ class Ui_MainWindow(object):
         self.buttonclear.setText(_translate("MainWindow", "AC"))
         self.buttonlb.setText(_translate("MainWindow", "("))
         self.buttonrb.setText(_translate("MainWindow", ")"))
-        self.pushciarka.setText(_translate("MainWindow", ","))
+        self.pushciarka.setText(_translate("MainWindow", "."))
 
 
 if __name__ == "__main__":
