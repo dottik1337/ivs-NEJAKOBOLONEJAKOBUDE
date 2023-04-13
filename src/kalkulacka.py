@@ -433,6 +433,8 @@ class Ui_Calculator(object):
             buffer = ivsmath.evaluate_expression(buffer)
             buffer = str(buffer)
             self.label.setText(buffer)
+            if buffer == "Math Error":
+                buffer=''
         
         def sin():
             """
