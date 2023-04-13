@@ -3,9 +3,6 @@
 # @authors
 # @brief Handling of math expressions
 
-expression = "5!s" #input()
-
-
 class Precedence():
     """
     @brief Precedence enum
@@ -243,6 +240,40 @@ def evaluate_postfix(postfix):
             handle_operation(stack, i)
     return stack.pop()
 
+def format_expr(x):
+    """
+    @brief The function formats a given number by limiting the number of digits before and after the decimal
+    point and converting it to scientific notation if necessary.
+    
+    @param x The input value that needs to be formatted
+    
+    @return The function `format_expr` returns a formatted version of the input `x`
+    """
+    MAX_N_LEN=3
+    MAX_DEC_LEN=7
+    try:
+        nat_len=len(str(x).split(".")[0])
+        dec_len=len(str(x).split(".")[1])
+        dec=str(x).split(".")[1]
+    except:
+        if(len(str(x)) > MAX_N_LEN):
+            return f'{x:e}'
+        return int(x)
+    
+    zero_len=0
+    for i in dec:
+        if(i == "0"):
+            zero_len+=1
+        else:
+            break
+
+    if(dec_len == 1 and str(x).split(".")[1][0] == "0"): #ak je za bodkou iba nula
+        return int(x)
+    elif(zero_len > MAX_DEC_LEN or nat_len > MAX_N_LEN):
+        return f'{x:e}'
+    else:
+        return x
+
 
 def evaluate_expression(expression):
     """
@@ -259,7 +290,8 @@ def evaluate_expression(expression):
         return "Division by zero"
     except:
         return "Math Error"
-    return eval
+    return format_expr(eval)
 
-
-print("print:", evaluate_expression(expression))
+if __name__ == "__main__":
+    expression = "s5*5" #input()
+    print("print:", evaluate_expression(expression))

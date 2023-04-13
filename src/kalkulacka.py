@@ -40,10 +40,10 @@ class Ui_Calculator(object):
     def setupUi(self, Calculator):
         Calculator.setObjectName("Calculator")
         Calculator.resize(706, 325)
-        Calculator.setStyleSheet("background-color: rgb(242, 246, 255);\n"
-"\n"
-"\n"
-"")
+        #Calculator.setStyleSheet("background-color: rgb(242, 246, 255);\n"
+#"\n"
+#"\n"
+#"")
         
         def superscript(p):
             """
@@ -162,6 +162,8 @@ class Ui_Calculator(object):
             zatvotky = 0
             if len(buffer) > 0:
                     lastChar = buffer[len(buffer) - 1]
+            else:
+                lastChar=""
                     
             for i in range(len(buffer)):
                 if buffer[i] == '⁽':
@@ -462,9 +464,9 @@ class Ui_Calculator(object):
         font.setWeight(50)
         font.setStrikeOut(False)
         self.label.setFont(font)
-        self.label.setStyleSheet("background-color: rgb(242, 246, 255);\n"
-"border-color: black;\n"
-"border-width: 3px;")
+        #self.label.setStyleSheet("background-color: rgb(242, 246, 255);\n"
+#"border-color: black;\n"
+#"border-width: 3px;")
         self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
         self.button1 = QtWidgets.QPushButton(self.centralwidget)
