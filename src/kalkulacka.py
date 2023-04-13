@@ -331,9 +331,9 @@ class Ui_MainWindow(object):
             ciarka = False
             for i in range (len(buffer)-1, -1, -1):
                 
-                if buffer[i] == '.':
+                if buffer[i] == '.' or buffer[len(buffer)-1] in ['+', '-', 'x', '÷', '(', ')', '!']:
                     ciarka = True
-                elif buffer[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                elif buffer[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] :
                     break 
             
             
