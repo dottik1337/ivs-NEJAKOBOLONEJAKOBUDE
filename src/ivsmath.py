@@ -3,7 +3,7 @@
 # @authors
 # @brief Handling of math expressions
 
-expression = "1558!"  # input()
+#expression = input()
 
 
 class Precedence():
@@ -29,25 +29,24 @@ class Operator():
         self.char = char
 
     def get_eval(self):
-        match self.char:
-            case "+":
-                return Precedence.PLUS
-            case "-":
-                return Precedence.MINUS
-            case "*":
-                return Precedence.MUL
-            case "/":
-                return Precedence.DIV
-            case "^":
-                return Precedence.POW
-            case "r":
-                return Precedence.RADICAL
-            case "!":
-                return Precedence.FAC
-            case _:
-                print(self.char)
-                print("error Operator.get_eval")
-                return 0
+        if self.char == "+":
+            return Precedence.PLUS
+        elif self.char == "-":
+            return Precedence.MINUS
+        elif self.char == "*":
+            return Precedence.MUL
+        elif self.char == "/":
+            return Precedence.DIV
+        elif self.char == "^":
+            return Precedence.POW
+        elif self.char == "r":
+            return Precedence.RADICAL
+        elif self.char == "!":
+            return Precedence.FAC
+        else:
+            print(self.char)
+            print("error Operator.get_eval")
+            return 0
 
     def __le__(self, other):
         return self.get_eval() <= other.get_eval()
@@ -165,6 +164,14 @@ def factorial(a):
         sum *= i
     return sum
 
+def power(a,b):
+    """
+    @brief It returns the value of a to the power of b.
+    
+    @param a exponent
+    @param b the base
+    """
+    return b**a
 
 def handle_operation(stack, operator):
     """
@@ -183,7 +190,7 @@ def handle_operation(stack, operator):
         case "/":
             tmp = division(stack.pop(), stack.pop())
         case "^":
-            tmp = stack.pop()**stack.pop()
+            tmp = power(stack.pop(),stack.pop())
         case "r":
             tmp = radical(stack.pop(), stack.pop())
         case "!":
@@ -225,4 +232,4 @@ def evaluate_expression(expression):
     return eval
 
 
-print("print:", evaluate_expression(expression))
+#print("print:", evaluate_expression(expression))
