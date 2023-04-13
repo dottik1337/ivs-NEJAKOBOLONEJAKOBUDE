@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'calc2.ui'
+# Form implementation generated from reading ui file 'finishcalc.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -8,6 +8,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from HelpWindov import Ui_HelpWindow
+
 
 import sys
 sys.path.append('/calculator')
@@ -26,8 +28,22 @@ pow = False
 lenpow = 0
 index = -2
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+
+class Ui_Calculator(object):
+
+    def openHelp(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_HelpWindow()        
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def setupUi(self, Calculator):
+        Calculator.setObjectName("Calculator")
+        Calculator.resize(706, 325)
+        Calculator.setStyleSheet("background-color: rgb(242, 246, 255);\n"
+"\n"
+"\n"
+"")
         
         def superscript(p):
             """
@@ -92,6 +108,11 @@ class Ui_MainWindow(object):
             if len(buffer) > 0:
                 lastChar = buffer[len(buffer) - 1]
             else: lastChar= ''
+            
+            if len(buffer) > 1:
+                secondlast = buffer[len(buffer) - 2]
+            else: secondlast=''
+            
             if lastChar == '√':
                 buffer=buffer[:-1]
                 while True:
@@ -102,12 +123,19 @@ class Ui_MainWindow(object):
                         buffer=buffer[:-1]
                     else: break
                 self.label.setText(buffer)
+            elif lastChar == '(' and secondlast == 'n':
+                buffer=buffer[:-1]
+                buffer=buffer[:-1]
+                buffer=buffer[:-1]
+                buffer=buffer[:-1]
+                self.label.setText(buffer)
+
             else:            
                 buffer=buffer[:-1]
                 self.label.setText(buffer)
                 if len(buffer) > 0:
                     lastChar = buffer[len(buffer) - 1]
-                    if lastChar in ['+', '-', 'x', '÷']:
+                    if lastChar in ['+', '-', 'x', '÷', '(', '.']:
                         self.buttoneq.setEnabled(False)
                     else: 
                         self.buttoneq.setEnabled(True)
@@ -160,7 +188,7 @@ class Ui_MainWindow(object):
             else:            
                 pow = False
                 lenpow = 0
-                if lastChar in ['+', '-', 'x', '÷', '√']:
+                if lastChar in ['+', '-', 'x', '÷', '√', '.']:
                         buffer=buffer
                         
                 elif lastChar == '(' and znamienko in ['+', 'x', '÷']:
@@ -212,6 +240,7 @@ class Ui_MainWindow(object):
                 lastChar = buffer[len(buffer) - 1]
             else: lastChar = ''
             if lastChar in ['+', '-', 'x', '÷', '', '(']:
+                self.buttoneq.setEnabled(False)
                 buffer+='('
             elif pow == True :
                 if lastChar in ['⁺' , '⁻' , 'ˣ' , '÷', '⁽', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
@@ -328,6 +357,7 @@ class Ui_MainWindow(object):
             """
             global buffer
             global pow
+            global index
             ciarka = False
             for i in range (len(buffer)-1, -1, -1):
                 
@@ -337,8 +367,9 @@ class Ui_MainWindow(object):
                     break 
             
             
-            if ciarka == False and pow == False and len(buffer) != 0:
+            if ciarka == False and pow == False and len(buffer) != 0 and index == -2:
                 buffer += '.'
+                self.buttoneq.setEnabled(False)
                 self.label.setText(buffer)
             else: buffer = buffer
             
@@ -363,9 +394,24 @@ class Ui_MainWindow(object):
                         newbuffer+='2'
                     
                     newbuffer+=x[str(buffer[i])]
+                elif buffer[i] == 'n' or buffer[i] == 'i':
+                    continue
                 else:
                     newbuffer+=buffer[i]    
-            buffer = newbuffer 
+            
+            prava = 0
+            lava = 0
+            for i in range(0, len(newbuffer),1):
+                if newbuffer[i]=='(':
+                    lava+=1
+                elif newbuffer[i]==')':
+                    prava+=1
+                
+                   
+            while(prava<lava):
+                newbuffer+=')'
+                prava+=1
+            buffer = newbuffer
             
         def equals():
             """
@@ -385,103 +431,326 @@ class Ui_MainWindow(object):
             buffer = ivsmath.evaluate_expression(buffer)
             buffer = str(buffer)
             self.label.setText(buffer)
-                               
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(791, 589)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        
+        def sin():
+            """
+            @brief function adds sin( to the end of the buffer
+            """
+            global buffer
+            global pow
+            global index
+            
+            if len(buffer) > 0:
+                lastChar = buffer[len(buffer) - 1]
+            else: lastChar=''
+            
+            if lastChar in ['+', '-', 'x', '÷', '(', '' ] and pow == False and index == -2:
+                buffer+='sin('
+            else: buffer = buffer
+            self.buttoneq.setEnabled(False)
+            self.label.setText(buffer)
+        
+        self.centralwidget = QtWidgets.QWidget(Calculator)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 10, 771, 51))
+        self.label.setGeometry(QtCore.QRect(20, 10, 671, 61))
         font = QtGui.QFont()
-        font.setPointSize(17)
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(22)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
         font.setStrikeOut(False)
         self.label.setFont(font)
+        self.label.setStyleSheet("background-color: rgb(242, 246, 255);\n"
+"border-color: black;\n"
+"border-width: 3px;")
         self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
         self.button1 = QtWidgets.QPushButton(self.centralwidget)
-        self.button1.setGeometry(QtCore.QRect(20, 430, 91, 81))
+        self.button1.setGeometry(QtCore.QRect(140, 190, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button1.setFont(font)
+        self.button1.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button1.setObjectName("button1")
         self.button4 = QtWidgets.QPushButton(self.centralwidget)
-        self.button4.setGeometry(QtCore.QRect(20, 330, 91, 81))
+        self.button4.setGeometry(QtCore.QRect(140, 140, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button4.setFont(font)
+        self.button4.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button4.setObjectName("button4")
         self.button7 = QtWidgets.QPushButton(self.centralwidget)
-        self.button7.setGeometry(QtCore.QRect(20, 230, 91, 81))
+        self.button7.setGeometry(QtCore.QRect(140, 90, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button7.setFont(font)
+        self.button7.setStyleSheet("background-color: rgb(200, 185, 214);\n"
+"borde-color: transparent;")
         self.button7.setObjectName("button7")
         self.button8 = QtWidgets.QPushButton(self.centralwidget)
-        self.button8.setGeometry(QtCore.QRect(130, 230, 91, 81))
+        self.button8.setGeometry(QtCore.QRect(240, 90, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button8.setFont(font)
+        self.button8.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button8.setObjectName("button8")
         self.button5 = QtWidgets.QPushButton(self.centralwidget)
-        self.button5.setGeometry(QtCore.QRect(130, 330, 91, 81))
+        self.button5.setGeometry(QtCore.QRect(240, 140, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button5.setFont(font)
+        self.button5.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button5.setObjectName("button5")
         self.button2 = QtWidgets.QPushButton(self.centralwidget)
-        self.button2.setGeometry(QtCore.QRect(130, 430, 91, 81))
+        self.button2.setGeometry(QtCore.QRect(240, 190, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button2.setFont(font)
+        self.button2.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button2.setObjectName("button2")
         self.button3 = QtWidgets.QPushButton(self.centralwidget)
-        self.button3.setGeometry(QtCore.QRect(240, 430, 91, 81))
+        self.button3.setGeometry(QtCore.QRect(340, 190, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button3.setFont(font)
+        self.button3.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button3.setObjectName("button3")
         self.button6 = QtWidgets.QPushButton(self.centralwidget)
-        self.button6.setGeometry(QtCore.QRect(240, 330, 91, 81))
+        self.button6.setGeometry(QtCore.QRect(340, 140, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button6.setFont(font)
+        self.button6.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button6.setObjectName("button6")
         self.button9 = QtWidgets.QPushButton(self.centralwidget)
-        self.button9.setGeometry(QtCore.QRect(240, 230, 91, 81))
+        self.button9.setGeometry(QtCore.QRect(340, 90, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.button9.setFont(font)
+        self.button9.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button9.setObjectName("button9")
         self.pushButton_0 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_0.setGeometry(QtCore.QRect(350, 420, 91, 81))
+        self.pushButton_0.setGeometry(QtCore.QRect(140, 240, 191, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.pushButton_0.setFont(font)
+        self.pushButton_0.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.pushButton_0.setObjectName("pushButton_0")
         self.buttoneq = QtWidgets.QPushButton(self.centralwidget)
-        self.buttoneq.setGeometry(QtCore.QRect(460, 430, 311, 81))
+        self.buttoneq.setGeometry(QtCore.QRect(450, 240, 231, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(15)
+        self.buttoneq.setFont(font)
+        self.buttoneq.setStyleSheet("background-color: rgb(103, 105, 255);\n"
+        "color: rgb(255, 255, 255);")
         self.buttoneq.setObjectName("buttoneq")
         self.buttondel = QtWidgets.QPushButton(self.centralwidget)
-        self.buttondel.setGeometry(QtCore.QRect(350, 230, 91, 81))
+        self.buttondel.setGeometry(QtCore.QRect(450, 140, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttondel.setFont(font)
+        self.buttondel.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttondel.setObjectName("buttondel")
         self.buttonplus = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonplus.setGeometry(QtCore.QRect(460, 370, 151, 51))
+        self.buttonplus.setGeometry(QtCore.QRect(20, 90, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.buttonplus.setFont(font)
+        self.buttonplus.setToolTip("")
+        self.buttonplus.setStyleSheet("background-color: rgb(180, 180, 180);")
+        self.buttonplus.setShortcut("")
         self.buttonplus.setObjectName("buttonplus")
         self.buttonsub = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonsub.setGeometry(QtCore.QRect(620, 370, 151, 51))
+        self.buttonsub.setGeometry(QtCore.QRect(20, 140, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonsub.setFont(font)
+        self.buttonsub.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonsub.setObjectName("buttonsub")
         self.buttonmul = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonmul.setGeometry(QtCore.QRect(460, 310, 151, 51))
+        self.buttonmul.setGeometry(QtCore.QRect(20, 240, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonmul.setFont(font)
+        self.buttonmul.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonmul.setObjectName("buttonmul")
         self.buttondiv = QtWidgets.QPushButton(self.centralwidget)
-        self.buttondiv.setGeometry(QtCore.QRect(620, 310, 151, 51))
+        self.buttondiv.setGeometry(QtCore.QRect(20, 190, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttondiv.setFont(font)
+        self.buttondiv.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttondiv.setObjectName("buttondiv")
         self.buttonpow = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonpow.setGeometry(QtCore.QRect(460, 230, 71, 71))
+        self.buttonpow.setGeometry(QtCore.QRect(530, 190, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonpow.setFont(font)
+        self.buttonpow.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonpow.setObjectName("buttonpow")
         self.buttonodmocnina = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonodmocnina.setGeometry(QtCore.QRect(540, 230, 71, 71))
+        self.buttonodmocnina.setGeometry(QtCore.QRect(530, 140, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonodmocnina.setFont(font)
+        self.buttonodmocnina.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonodmocnina.setObjectName("buttonodmocnina")
         self.buttofactorial = QtWidgets.QPushButton(self.centralwidget)
-        self.buttofactorial.setGeometry(QtCore.QRect(620, 230, 71, 71))
+        self.buttofactorial.setGeometry(QtCore.QRect(610, 190, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttofactorial.setFont(font)
+        self.buttofactorial.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttofactorial.setObjectName("buttofactorial")
         self.buttonsin = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonsin.setGeometry(QtCore.QRect(700, 230, 71, 71))
+        self.buttonsin.setGeometry(QtCore.QRect(610, 90, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonsin.setFont(font)
+        self.buttonsin.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonsin.setObjectName("buttonsin")
         self.buttonclear = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonclear.setGeometry(QtCore.QRect(350, 330, 91, 81))
+        self.buttonclear.setGeometry(QtCore.QRect(450, 190, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonclear.setFont(font)
+        self.buttonclear.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonclear.setObjectName("buttonclear")
         self.buttonlb = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonlb.setGeometry(QtCore.QRect(350, 140, 41, 81))
+        self.buttonlb.setGeometry(QtCore.QRect(450, 90, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonlb.setFont(font)
+        self.buttonlb.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonlb.setObjectName("buttonlb")
         self.buttonrb = QtWidgets.QPushButton(self.centralwidget)
-        self.buttonrb.setGeometry(QtCore.QRect(400, 140, 41, 81))
+        self.buttonrb.setGeometry(QtCore.QRect(530, 90, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.buttonrb.setFont(font)
+        self.buttonrb.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.buttonrb.setObjectName("buttonrb")
         self.pushciarka = QtWidgets.QPushButton(self.centralwidget)
-        self.pushciarka.setGeometry(QtCore.QRect(350, 510, 91, 31))
+        self.pushciarka.setGeometry(QtCore.QRect(340, 240, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.pushciarka.setFont(font)
+        self.pushciarka.setStyleSheet("background-color: rgb(180, 180, 180);")
         self.pushciarka.setObjectName("pushciarka")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 791, 20))
+        self.ytaodmocnia = QtWidgets.QPushButton(self.centralwidget)
+        self.ytaodmocnia.setEnabled(True)
+        self.ytaodmocnia.setGeometry(QtCore.QRect(610, 140, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("URW Gothic [urw]")
+        font.setPointSize(12)
+        self.ytaodmocnia.setFont(font)
+        self.ytaodmocnia.setStyleSheet("background-color: rgb(180, 180, 180);")
+        self.ytaodmocnia.setObjectName("ytaodmocnia")
+        Calculator.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(Calculator)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 706, 20))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.menuHelp = QtWidgets.QMenu(self.menubar)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 115, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.HighlightedText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 115, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.HighlightedText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(242, 246, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 115, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.HighlightedText, brush)
+        self.menuHelp.setPalette(palette)
+        self.menuHelp.setToolTipsVisible(False)
+        self.menuHelp.setObjectName("menuHelp")
+        Calculator.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(Calculator)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        Calculator.setStatusBar(self.statusbar)
+        self.actionOpen_Manual = QtWidgets.QAction(Calculator)
+        self.actionOpen_Manual.setCheckable(False)
+        self.actionOpen_Manual.setIconVisibleInMenu(True)
+        self.actionOpen_Manual.setObjectName("actionOpen_Manual")
+        self.menuHelp.addSeparator()
+        self.menuHelp.addAction(self.actionOpen_Manual)
+        self.menubar.addAction(self.menuHelp.menuAction())
 
+        self.actionOpen_Manual.triggered.connect(lambda: self.openHelp())
+        
         self.pushButton_0.clicked.connect(lambda: funkcia (0)) 
         self.button1.clicked.connect(lambda: funkcia (1))
         self.button2.clicked.connect(lambda: funkcia (2))
@@ -506,50 +775,59 @@ class Ui_MainWindow(object):
         self.buttonlb.clicked.connect(leftbracket)
         self.buttonrb.clicked.connect(rightbracket)
         self.buttonodmocnina.clicked.connect(odmocnina)
-        self.buttonsin.clicked.connect(ntaodmocnina)
+        self.ytaodmocnia.clicked.connect(ntaodmocnina)
         self.buttofactorial.clicked.connect(faktorial)
         self.pushciarka.clicked.connect(dash)
         
         self.buttoneq.clicked.connect(equals)
         
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.buttonsin.clicked.connect(sin)
+        
+        
+        self.retranslateUi(Calculator)
+        QtCore.QMetaObject.connectSlotsByName(Calculator)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Calculator):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", ""))
-        self.button1.setText(_translate("MainWindow", "1"))
-        self.button4.setText(_translate("MainWindow", "4"))
-        self.button7.setText(_translate("MainWindow", "7"))
-        self.button8.setText(_translate("MainWindow", "8"))
-        self.button5.setText(_translate("MainWindow", "5"))
-        self.button2.setText(_translate("MainWindow", "2"))
-        self.button3.setText(_translate("MainWindow", "3"))
-        self.button6.setText(_translate("MainWindow", "6"))
-        self.button9.setText(_translate("MainWindow", "9"))
-        self.pushButton_0.setText(_translate("MainWindow", "0"))
-        self.buttoneq.setText(_translate("MainWindow", "="))
-        self.buttondel.setText(_translate("MainWindow", "CE"))
-        self.buttonplus.setText(_translate("MainWindow", "+"))
-        self.buttonsub.setText(_translate("MainWindow", "-"))
-        self.buttonmul.setText(_translate("MainWindow", "x"))
-        self.buttondiv.setText(_translate("MainWindow", " ÷"))
-        self.buttonpow.setText(_translate("MainWindow", "x^y"))
-        self.buttonodmocnina.setText(_translate("MainWindow", "√x"))
-        self.buttofactorial.setText(_translate("MainWindow", "x!"))
-        self.buttonsin.setText(_translate("MainWindow", "sin(x)"))
-        self.buttonclear.setText(_translate("MainWindow", "AC"))
-        self.buttonlb.setText(_translate("MainWindow", "("))
-        self.buttonrb.setText(_translate("MainWindow", ")"))
-        self.pushciarka.setText(_translate("MainWindow", "."))
+        Calculator.setWindowTitle(_translate("Calculator", "MainWindow"))
+        self.label.setText(_translate("Calculator", ""))
+        self.button1.setText(_translate("Calculator", "1"))
+        self.button4.setText(_translate("Calculator", "4"))
+        self.button7.setText(_translate("Calculator", "7"))
+        self.button8.setText(_translate("Calculator", "8"))
+        self.button5.setText(_translate("Calculator", "5"))
+        self.button2.setText(_translate("Calculator", "2"))
+        self.button3.setText(_translate("Calculator", "3"))
+        self.button6.setText(_translate("Calculator", "6"))
+        self.button9.setText(_translate("Calculator", "9"))
+        self.pushButton_0.setText(_translate("Calculator", "0"))
+        self.buttoneq.setText(_translate("Calculator", "="))
+        self.buttondel.setText(_translate("Calculator", "CE"))
+        self.buttonplus.setText(_translate("Calculator", "+"))
+        self.buttonsub.setText(_translate("Calculator", "-"))
+        self.buttonmul.setText(_translate("Calculator", "x"))
+        self.buttondiv.setText(_translate("Calculator", " ÷"))
+        self.buttonpow.setText(_translate("Calculator", "xʸ"))
+        self.buttonodmocnina.setText(_translate("Calculator", "√x"))
+        self.buttofactorial.setText(_translate("Calculator", "x!"))
+        self.buttonsin.setText(_translate("Calculator", "sin(x)"))
+        self.buttonclear.setText(_translate("Calculator", "AC"))
+        self.buttonlb.setText(_translate("Calculator", "("))
+        self.buttonrb.setText(_translate("Calculator", ")"))
+        self.pushciarka.setText(_translate("Calculator", "."))
+        self.ytaodmocnia.setText(_translate("Calculator", "ʸ√x"))
+        self.menuHelp.setTitle(_translate("Calculator", "Help"))
+        self.actionOpen_Manual.setText(_translate("Calculator", "Open Manual"))
+        self.actionOpen_Manual.setStatusTip(_translate("Calculator", "Manual"))
+        self.actionOpen_Manual.setShortcut(_translate("Calculator", "Ctrl+M"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Calculator = QtWidgets.QMainWindow()
+    ui = Ui_Calculator()
+    ui.setupUi(Calculator)
+    Calculator.show()
     sys.exit(app.exec_())
+
