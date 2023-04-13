@@ -157,7 +157,7 @@ def factorial(a):
     if a % 1 != 0 or a < 0:
         print("Value error in factorial function")
         raise ValueError
-    elif a > 1558:  # max number that can be calculated using this algorithm
+    elif a > 170:  # max number that can be calculated using this algorithm
         print("Value error in factorial function")
         raise ValueError
     sum = 1
@@ -249,29 +249,12 @@ def format_expr(x):
     
     @return The function `format_expr` returns a formatted version of the input `x`
     """
-    MAX_N_LEN=3
-    MAX_DEC_LEN=7
-    try:
-        dec_len=len(str(x).split(".")[1])
-        dec=str(x).split(".")[1]
-    except:
-        if(len(str(x)) > MAX_N_LEN):
+    MAX_N_LEN=1000000000000000000000
+    if(x - int(x) == 0.0):
+        if(x > MAX_N_LEN):
             return f'{x:e}'
         return int(x)
-    
-    zero_len=0
-    for i in dec:
-        if(i == "0"):
-            zero_len+=1
-        else:
-            break
-
-    if((zero_len == dec_len)): #ak je za bodkou iba nula
-        return int(x)
-    elif(zero_len > MAX_DEC_LEN):
-        return f'{x:e}'
-    else:
-        return x
+    return str(float(x))
 
 
 def evaluate_expression(expression):
@@ -292,5 +275,5 @@ def evaluate_expression(expression):
     return format_expr(eval)
 
 if __name__ == "__main__":
-    expression = "s5*5" #input()
+    expression = "0.00000001" #input()
     print("print:", evaluate_expression(expression))
