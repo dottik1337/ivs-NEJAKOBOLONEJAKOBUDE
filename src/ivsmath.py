@@ -267,7 +267,7 @@ def format_expr(x):
         else:
             break
 
-    if(dec_len == 1 and str(x).split(".")[1][0] == "0"): #ak je za bodkou iba nula
+    if((dec_len == 1 and str(x).split(".")[1][0] == "0") or (zero_len == dec_len)): #ak je za bodkou iba nula
         return int(x)
     elif(zero_len > MAX_DEC_LEN or nat_len > MAX_N_LEN):
         return f'{x:e}'
