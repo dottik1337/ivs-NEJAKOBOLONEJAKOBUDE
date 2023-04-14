@@ -80,13 +80,20 @@ class Ui_Calculator(object):
                             if buffer[i+1] == "⁰":
                                 break
                             else:
-                        
+                                print('aaaa')
                                 buffer+=str(superscript(cislo))
+                                lenpow+=1
                                 break
-                        else: buffer+=str(superscript(cislo))
-                lenpow+=1
+                        else: 
+                            buffer+=str(superscript(cislo))
+                            lenpow+=1
+                            break
+                            print('bbb')
+                
             elif pow == True and lastChar != '⁾' and cislo == 0 and lastChar != "⁰":
                 buffer+=str(superscript(cislo))
+                lenpow+=1
+                print('cccc')
             elif index != -2:
                 
                 if cislo == 0 and (buffer[index] in ['+', '-', 'x', '÷', '('] or index == -1):
@@ -201,7 +208,7 @@ class Ui_Calculator(object):
             else:            
                 pow = False
                 lenpow = 0
-                if lastChar in ['+', '-', 'x', '÷', '√', '.']:
+                if lastChar in ['+', '-', 'x', '÷', '√', '.', ''] and znamienko != '-':
                         buffer=buffer
                         
                 elif lastChar == '(' and znamienko in ['+', 'x', '÷']:
@@ -277,6 +284,7 @@ class Ui_Calculator(object):
             mlava = 0
             mprava = 0
             for i in range(len(buffer)):
+                
                 if buffer[i] == '(':
                     lava+=1
                 elif buffer[i] == '⁽':
@@ -285,13 +293,17 @@ class Ui_Calculator(object):
                     prava+=1
                 elif buffer[i] == '⁾':
                     mprava+=1
-                    
+            
             if lastChar in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ')', '!'] and lava>prava and pow == False: 
                 buffer += ')'
                 self.label.setText(buffer)
             elif lastChar in ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹", '⁾'] and mlava>mprava and pow == True:
                 buffer += '⁾'
                 lenpow+=1
+                self.label.setText(buffer)
+            elif lastChar in ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹", '⁾'] and lava>prava:
+                buffer+=')'
+                pow = False
                 self.label.setText(buffer)
             else: buffer = buffer
             
@@ -807,30 +819,55 @@ class Ui_Calculator(object):
         Calculator.setWindowTitle(_translate("Calculator", "Calculator"))
         self.label.setText(_translate("Calculator", ""))
         self.button1.setText(_translate("Calculator", "1"))
+        self.button1.setShortcut("1")
         self.button4.setText(_translate("Calculator", "4"))
+        self.button4.setShortcut("4")
         self.button7.setText(_translate("Calculator", "7"))
+        self.button7.setShortcut("7")
         self.button8.setText(_translate("Calculator", "8"))
+        self.button8.setShortcut("8")
         self.button5.setText(_translate("Calculator", "5"))
+        self.button5.setShortcut("5")
         self.button2.setText(_translate("Calculator", "2"))
+        self.button2.setShortcut("2")
         self.button3.setText(_translate("Calculator", "3"))
+        self.button3.setShortcut("3")
         self.button6.setText(_translate("Calculator", "6"))
+        self.button6.setShortcut("6")
         self.button9.setText(_translate("Calculator", "9"))
+        self.button9.setShortcut("9")
         self.pushButton_0.setText(_translate("Calculator", "0"))
+        self.pushButton_0.setShortcut("0")
         self.buttoneq.setText(_translate("Calculator", "="))
+        self.buttoneq.setShortcut("=")
         self.buttondel.setText(_translate("Calculator", "CE"))
+        self.buttondel.setShortcut("Backspace")
         self.buttonplus.setText(_translate("Calculator", "+"))
+        self.buttonplus.setShortcut("+")
         self.buttonsub.setText(_translate("Calculator", "-"))
+        self.buttonsub.setShortcut("-")
         self.buttonmul.setText(_translate("Calculator", "x"))
+        self.buttonmul.setShortcut("x")
         self.buttondiv.setText(_translate("Calculator", " ÷"))
+        self.buttondiv.setShortcut("/")
         self.buttonpow.setText(_translate("Calculator", "xʸ"))
+        self.buttonpow.setShortcut("p")
         self.buttonodmocnina.setText(_translate("Calculator", "√x"))
+        self.buttonodmocnina.setShortcut("o")
         self.buttofactorial.setText(_translate("Calculator", "x!"))
+        self.buttofactorial.setShortcut("f")
         self.buttonsin.setText(_translate("Calculator", "sin(x)"))
+        self.buttonsin.setShortcut("s")
         self.buttonclear.setText(_translate("Calculator", "AC"))
+        self.buttonclear.setShortcut("c")
         self.buttonlb.setText(_translate("Calculator", "("))
+        self.buttonlb.setShortcut("(")
         self.buttonrb.setText(_translate("Calculator", ")"))
+        self.buttonrb.setShortcut(")")
         self.pushciarka.setText(_translate("Calculator", "."))
+        self.pushciarka.setShortcut(".")
         self.ytaodmocnia.setText(_translate("Calculator", "ʸ√x"))
+        self.ytaodmocnia.setShortcut("y+o")
         self.menuHelp.setTitle(_translate("Calculator", "Help"))
         self.actionOpen_Manual.setText(_translate("Calculator", "Open Manual"))
         self.actionOpen_Manual.setStatusTip(_translate("Calculator", "Manual"))
