@@ -13,7 +13,7 @@ from HelpWindov import Ui_HelpWindow
 
 import sys
 sys.path.append('/calculator')
-print(sys.path)
+#print(sys.path)
 import ivsmath
 
 """
@@ -73,9 +73,20 @@ class Ui_Calculator(object):
             else: secondlast=''
             
             if pow == True and lastChar != '⁾' and (cislo != 0 or lastChar not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '⁺' , '⁻' , 'ˣ' , '÷', '⁽']):
-                
-                buffer+=str(superscript(cislo))
+                for i in range(len(buffer)-1, -1, -1):
+                    
+                    if buffer[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '⁺' , '⁻' , 'ˣ' , '÷', '⁽']:
+                        if len(buffer)>i+1:
+                            if buffer[i+1] == "⁰":
+                                break
+                            else:
+                        
+                                buffer+=str(superscript(cislo))
+                                break
+                        else: buffer+=str(superscript(cislo))
                 lenpow+=1
+            elif pow == True and lastChar != '⁾' and cislo == 0 and lastChar != "⁰":
+                buffer+=str(superscript(cislo))
             elif index != -2:
                 
                 if cislo == 0 and (buffer[index] in ['+', '-', 'x', '÷', '('] or index == -1):
@@ -429,7 +440,7 @@ class Ui_Calculator(object):
             index = -2
             pow = False
             convert()    
-            print(buffer)
+            #print(buffer)
             buffer = ivsmath.evaluate_expression(buffer)
             buffer = str(buffer)
             self.label.setText(buffer)
