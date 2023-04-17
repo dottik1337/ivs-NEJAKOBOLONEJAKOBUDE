@@ -877,7 +877,7 @@ class Ui_Calculator(object):
         self.buttonsub.setText(_translate("Calculator", "-"))
         self.buttonsub.setShortcut("-")
         self.buttonmul.setText(_translate("Calculator", "x"))
-        self.buttonmul.setShortcut("x")
+        self.buttonmul.setShortcut("*")
         self.buttondiv.setText(_translate("Calculator", " ÷"))
         self.buttondiv.setShortcut("/")
         self.buttonpow.setText(_translate("Calculator", "xʸ"))
