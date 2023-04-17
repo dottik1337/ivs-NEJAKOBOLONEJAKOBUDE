@@ -422,8 +422,37 @@ class Ui_Calculator(object):
                 elif buffer[i] == 'n' or buffer[i] == 'i':
                     continue
                 else:
-                    newbuffer+=buffer[i]    
-            
+                    newbuffer+=buffer[i]
+            buffer = newbuffer
+            newbuffer = ''
+            zatvorka = False  
+            print(buffer)      
+            for i in range(0, len(buffer),1):
+                print(zatvorka)
+                if zatvorka == True and buffer[i] in ['+', '-', '*', '/']:
+                    print("aaa")
+                    newbuffer+=')'
+                    zatvorka = False
+                    newbuffer+=buffer[i]
+                elif buffer[i] == 'e':   
+                    
+                    
+                    newbuffer+='*10^('
+                elif buffer[i] == '+':
+                    
+                    if buffer[i-1] == 'e':
+                        zatvorka = True
+                        continue
+                    
+                elif buffer[i] == '-' and i > 0:
+                    if buffer[i-1] == 'e':
+                        newbuffer+=buffer[i]
+                        zatvorka=True
+                        continue
+                    
+                else:
+                    newbuffer+=buffer[i]
+            print(newbuffer)        
             prava = 0
             lava = 0
             for i in range(0, len(newbuffer),1):
@@ -431,7 +460,7 @@ class Ui_Calculator(object):
                     lava+=1
                 elif newbuffer[i]==')':
                     prava+=1
-                
+            
                    
             while(prava<lava):
                 newbuffer+=')'
@@ -840,7 +869,7 @@ class Ui_Calculator(object):
         self.pushButton_0.setText(_translate("Calculator", "0"))
         self.pushButton_0.setShortcut("0")
         self.buttoneq.setText(_translate("Calculator", "="))
-        self.buttoneq.setShortcut("=")
+        self.buttoneq.setShortcut("Return")
         self.buttondel.setText(_translate("Calculator", "CE"))
         self.buttondel.setShortcut("Backspace")
         self.buttonplus.setText(_translate("Calculator", "+"))
@@ -868,7 +897,7 @@ class Ui_Calculator(object):
         self.pushciarka.setText(_translate("Calculator", "."))
         self.pushciarka.setShortcut(".")
         self.ytaodmocnia.setText(_translate("Calculator", "ʸ√x"))
-        self.ytaodmocnia.setShortcut("y+o")
+        self.ytaodmocnia.setShortcut("y")
         self.menuHelp.setTitle(_translate("Calculator", "Help"))
         self.actionOpen_Manual.setText(_translate("Calculator", "Open Manual"))
         self.actionOpen_Manual.setStatusTip(_translate("Calculator", "Manual"))
