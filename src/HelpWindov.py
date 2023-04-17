@@ -8,11 +8,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtGui import QIcon
 
 class Ui_HelpWindow(object):
     def setupUi(self, HelpWindow):
         HelpWindow.setObjectName("HelpWindow")
+        
         HelpWindow.resize(1111, 877)
         self.centralwidget = QtWidgets.QWidget(HelpWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -38,6 +39,7 @@ class Ui_HelpWindow(object):
     def retranslateUi(self, HelpWindow):
         _translate = QtCore.QCoreApplication.translate
         HelpWindow.setWindowTitle(_translate("HelpWindow", "User Manual"))
+        HelpWindow.setWindowIcon(QtGui.QIcon('../icon.png'))
         self.textEdit.setHtml(_translate("HelpWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
