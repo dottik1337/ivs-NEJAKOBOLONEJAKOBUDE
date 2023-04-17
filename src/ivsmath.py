@@ -1,6 +1,6 @@
 ##
 # @file ivsmath.py
-# @authors
+# @authors Jozef Gallo, Sophia Halasova, Matus Paska
 # @brief Handling of math expressions
 
 class InvalidRadical(Exception):
@@ -49,8 +49,8 @@ class Operator():
         elif self.char == "(" or ")":
             return Precedence.BRACKET
         else:
-            print(self.char)
-            print("error Operator.get_eval")
+            #print(self.char)
+            #print("error Operator.get_eval")
             return 0
 
     def __le__(self, other):
@@ -85,7 +85,7 @@ def get_infix(string):
                 number = ""
             infix.append(char)
         else:
-            print("Error get_infix")
+            #print("Error get_infix")
             raise ValueError
     if number != "":
         infix.append(float(number))
@@ -128,7 +128,7 @@ def division(a, b):
     @returns @p b / @p a
     """
     if a == 0:
-        print("Division by zero")
+        #print("Division by zero")
         raise ValueError
     else:
         return b/a
@@ -158,10 +158,10 @@ def factorial(a):
     @return factorial of @p a
     """
     if a % 1 != 0 or a < 0:
-        print("Value error in factorial function")
+        #print("Value error in factorial function")
         raise ValueError
     elif a > 170:  # max number that can be calculated using this algorithm
-        print("Value error in factorial function")
+        #print("Value error in factorial function")
         raise ValueError
     sum = 1
     for i in range(2, int(a)+1):
@@ -224,7 +224,8 @@ def handle_operation(stack, operator):
     elif operator == "s":
         tmp = sin(stack.pop())
     else:
-        print("Not implemented yet")
+        pass
+        #print("Not implemented yet")
     stack.append(tmp)
 
 
@@ -281,4 +282,4 @@ def evaluate_expression(expression):
 
 if __name__ == "__main__":
     expression = input() #"2/(3.9*(2r(4+(s(5+5.3)*2.7)/79)))"
-    print("print:", evaluate_expression(expression))
+    print(evaluate_expression(expression))
