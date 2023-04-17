@@ -3,6 +3,9 @@
 # @authors
 # @brief Handling of math expressions
 
+class InvalidRadical(Exception):
+    "Raised when there is number < 0 under even radical"
+
 class Precedence():
     """
     @brief Precedence enum
@@ -16,7 +19,7 @@ class Precedence():
     RADICAL = 3
     FAC = 4
     SIN = 4
-
+    BRACKET = 5
 
 class Operator():
     """
@@ -43,6 +46,8 @@ class Operator():
             return Precedence.FAC
         elif self.char == "s":
             return Precedence.SIN
+        elif self.char == "(" or ")":
+            return Precedence.BRACKET
         else:
             print(self.char)
             print("error Operator.get_eval")
@@ -96,7 +101,7 @@ def get_postfix(infix):
     """
     postfix = []
     stack = []
-    for i in infix:
+    for i in infix:  
         if isinstance(i, float):
             postfix.append(i)
         elif i == "(":
@@ -138,11 +143,9 @@ def radical(a, b):
     @return the @p a root of @p b
     """
     if b%2 == 0 and a < 0:
-        print("Value error in radical function")
-        raise ValueError
+        raise InvalidRadical
     elif b == 0:
-        print("Value error in radical function")
-        raise ValueError
+        raise InvalidRadical
     else:
         return a ** (1.0/b)
 
@@ -270,10 +273,12 @@ def evaluate_expression(expression):
         eval = evaluate_postfix(postfix)
     except ZeroDivisionError:
         return "Division by zero"
+    except InvalidRadical:
+        return "Math error - invalid radical function"
     except:
         return "Math Error"
     return format_expr(eval)
 
 if __name__ == "__main__":
-    expression = "0.00000001" #input()
+    expression = input() #"2/(3.9*(2r(4+(s(5+5.3)*2.7)/79)))"
     print("print:", evaluate_expression(expression))

@@ -54,7 +54,7 @@ def test_evaluate_expression_errors():
 
     expr = "2r(-1)"
     result = ivsmath.evaluate_expression(expr)
-    assert result == "Math Error" 
+    assert result == "Math error - invalid radical function" 
 
 
 def test_evaluate_expression_parenthersis():
@@ -80,4 +80,17 @@ def test_evaluate_expression_sinus():
     assert result == 0
     expr = "5!s"
     result = ivsmath.evaluate_expression(expr)
-    assert result == 0.8660254038
+    assert result == str(0.8660254038)
+
+def test_evaluate_expression_hardcore():
+    expr = "(5*2)^2+((179+15/3)*2r(5!)+5/3)*s0.76"
+    result = ivsmath.evaluate_expression(expr)
+    assert round(float(result),4) == 126.7575
+
+    expr = "((2r((5+5)-(2^8)*0.5)/1.5)-420"
+    result = ivsmath.evaluate_expression(expr)
+    assert result == "Math error - invalid radical function"
+
+    expr = "2/(3.9*(2r(4+(s(5+5.3)*2.7)/79)))"
+    result = ivsmath.evaluate_expression(expr)
+    assert round(float(result),4) == 0.2562

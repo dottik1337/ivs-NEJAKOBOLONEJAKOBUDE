@@ -1,5 +1,5 @@
 CC=python3
-DEPENDECIES=python3-pyqt5 python3-pytest
+DEPENDECIES=python3-pyqt5 python3-pytest cProfile
 
 #packing
 DIRECTORY=..
@@ -10,7 +10,7 @@ all:
 	sudo apt install $(DEPENDECIES)
 
 test:
-	$(CC) test.py
+	pytest test.py
 
 doc:
 	@echo "to be added"
@@ -23,7 +23,4 @@ profile:
 
 pack:
 	@zip -r $(DIRECTORY)/$(REPO_FILE) $(DIRECTORY) -x@$(DIRECTORY)/$(GITIGNORE)
-	
-clean:
-	@echo "to be added"
 
