@@ -8,7 +8,14 @@ import sys
 
 def convert_string():
     global numbers
-    data = sys.stdin.read().split()
+    lines = sys.stdin.readlines()
+    data = []
+    for line in lines:
+        data += line.strip().split()
+    for element in data:
+        if not all(char.isdigit() or char == '.' or char == '-' for char in element):
+            print("Enter only numbers please.")
+            sys.exit()
     numbers = [float(i) for i in data]
 
 def arithmetic_mean():
