@@ -19,7 +19,9 @@ run:
 	$(CC) kalkulacka.py
 
 profile:
-	@echo "to be added"
+	$(CC) profiler.py <stddev_samples/vstup1.txt >../profiling/vystup1.txt
+	$(CC) profiler.py <stddev_samples/vstup2.txt >../profiling/vystup2.txt
+	$(CC) profiler.py <stddev_samples/vstup3.txt >../profiling/vystup3.txt
 
 pack:
 	@zip -r $(DIRECTORY)/$(REPO_FILE) $(DIRECTORY) -x@$(DIRECTORY)/$(GITIGNORE)
