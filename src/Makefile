@@ -1,5 +1,5 @@
 CC=python3
-DEPENDECIES=python3-pyqt5 python3-pytest cProfile
+DEPENDECIES=python3-pyqt5 python3-pytest
 
 #packing
 DIRECTORY=..
