@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from HelpWindov import Ui_HelpWindow
+from HelpWindow import Ui_MainWindow
 
 
 import sys
@@ -33,7 +33,7 @@ class Ui_Calculator(object):
 
     def openHelp(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_HelpWindow()        
+        self.ui = Ui_MainWindow()        
         self.ui.setupUi(self.window)
         self.window.show()
 
