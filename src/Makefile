@@ -24,3 +24,10 @@ profile:
 pack:
 	@zip -r $(DIRECTORY)/$(REPO_FILE) $(DIRECTORY) -x@$(DIRECTORY)/$(GITIGNORE)
 
+clear:
+	@rm -rf ./build
+	@rm -rf ./dist
+	@rm -f kalkulacka.spec
+
+pyinstall:
+	@pyinstaller kalkulacka.py

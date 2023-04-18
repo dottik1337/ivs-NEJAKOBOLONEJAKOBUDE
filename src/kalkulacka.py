@@ -426,11 +426,11 @@ class Ui_Calculator(object):
             buffer = newbuffer
             newbuffer = ''
             zatvorka = False  
-            print(buffer)      
+            #print(buffer)      
             for i in range(0, len(buffer),1):
-                print(zatvorka)
+                #print(zatvorka)
                 if zatvorka == True and buffer[i] in ['+', '-', '*', '/']:
-                    print("aaa")
+                    #print("aaa")
                     newbuffer+=')'
                     zatvorka = False
                     newbuffer+=buffer[i]
@@ -452,7 +452,7 @@ class Ui_Calculator(object):
                     
                 else:
                     newbuffer+=buffer[i]
-            print(newbuffer)        
+            #print(newbuffer)        
             prava = 0
             lava = 0
             for i in range(0, len(newbuffer),1):
@@ -545,8 +545,7 @@ class Ui_Calculator(object):
         font.setFamily("URW Gothic [urw]")
         font.setPointSize(12)
         self.button7.setFont(font)
-        self.button7.setStyleSheet("background-color: rgb(200, 185, 214);\n"
-"borde-color: transparent;")
+        self.button7.setStyleSheet("background-color: rgb(200, 185, 214);")
         self.button7.setObjectName("button7")
         self.button8 = QtWidgets.QPushButton(self.centralwidget)
         self.button8.setGeometry(QtCore.QRect(240, 90, 91, 31))
