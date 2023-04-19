@@ -7,6 +7,9 @@ from ivsmath import radical
 import sys
 
 def convert_string():
+    """
+    @brief Converts input to floats.
+    """
     global numbers
     lines = sys.stdin.readlines()
     data = []
@@ -19,6 +22,9 @@ def convert_string():
     numbers = [float(i) for i in data]
 
 def arithmetic_mean():
+    """
+    @brief Calculates the arithmetic mean of the given input numbers.
+    """
     global arithmeticmean
     sum = 0
     global count
@@ -32,6 +38,9 @@ def arithmetic_mean():
     arithmeticmean = division(count, sum)
 
 def variance():
+    """
+    @brief Calculates the variance based on the arithmetic mean and the given input numbers.
+    """
     global variance
     N = count
     numerator = 0
@@ -44,6 +53,9 @@ def variance():
     variance = division(denominator, numerator)
 
 def standard_deviation():
+    """
+    @brief Calculates the standard deviation based on the variance.
+    """
     stddv= radical(variance, 2)
     print(stddv)
 
