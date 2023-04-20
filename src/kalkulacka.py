@@ -13,7 +13,6 @@ from HelpWindow import Ui_MainWindow
 
 import sys
 sys.path.append('/calculator')
-#print(sys.path)
 import ivsmath
 
 """
@@ -80,7 +79,6 @@ class Ui_Calculator(object):
                             if buffer[i+1] == "⁰":
                                 break
                             else:
-                                print('aaaa')
                                 buffer+=str(superscript(cislo))
                                 lenpow+=1
                                 break
@@ -88,12 +86,10 @@ class Ui_Calculator(object):
                             buffer+=str(superscript(cislo))
                             lenpow+=1
                             break
-                            print('bbb')
                 
             elif pow == True and lastChar != '⁾' and cislo == 0 and lastChar != "⁰":
                 buffer+=str(superscript(cislo))
                 lenpow+=1
-                print('cccc')
             elif index != -2:
                 
                 if cislo == 0 and (buffer[index] in ['+', '-', 'x', '÷', '('] or index == -1):
@@ -426,7 +422,7 @@ class Ui_Calculator(object):
             buffer = newbuffer
             newbuffer = ''
             zatvorka = False  
-            #print(buffer)      
+            print(buffer)      
             for i in range(0, len(buffer),1):
                 #print(zatvorka)
                 if zatvorka == True and buffer[i] in ['+', '-', '*', '/']:
@@ -443,16 +439,21 @@ class Ui_Calculator(object):
                     if buffer[i-1] == 'e':
                         zatvorka = True
                         continue
+                    else:
+                         newbuffer+='+'
+                         continue
                     
                 elif buffer[i] == '-' and i > 0:
                     if buffer[i-1] == 'e':
                         newbuffer+=buffer[i]
                         zatvorka=True
                         continue
+                    else:
+                         newbuffer+='-'
                     
                 else:
                     newbuffer+=buffer[i]
-            #print(newbuffer)        
+            print(newbuffer)        
             prava = 0
             lava = 0
             for i in range(0, len(newbuffer),1):
