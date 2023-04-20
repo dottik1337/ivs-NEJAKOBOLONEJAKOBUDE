@@ -312,7 +312,7 @@ class Ui_Calculator(object):
             if len(buffer) > 0:
                 lastChar = buffer[len(buffer) - 1]
             else: lastChar=''
-            if pow == False and lastChar in [ '+', '-', 'x', '÷', '']:
+            if pow == False and lastChar in [ '+', '-', 'x', '÷', '','(']:
                 buffer+='√'
                 buffer+='('
                 self.label.setText(buffer)
