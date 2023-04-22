@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-'''
- @file ivsmath.py
- @authors Jozef Gallo, Sophia Halasova, Matus Paska
- @brief Handling of math expressions
-'''
-=======
 """ Math library for calculator Numbo"""
 
->>>>>>> refs/remotes/origin/main
 
 class InvalidRadical(Exception):
     """Raised when there is number < 0 under even radical"""
