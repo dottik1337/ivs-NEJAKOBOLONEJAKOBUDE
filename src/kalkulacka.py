@@ -47,11 +47,11 @@ class Ui_Calculator(object):
         def superscript(p):
             """
                 @ brief function converts a number to its superscript
-                @ param intiger the number that wants to be converted to superscipt 
+                @ param intiger the number that wants to be converted to superscipt
             """
             superscripts = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹",]
             return ''.join([superscripts[int(char)] for char in str(p)])
-        
+
         def funkcia(cislo):
             """
             @ brief function adds a number to the buffer and displays the new buffer in the calculator

@@ -1,7 +1,8 @@
-##
-# @file ivsmath.py
-# @authors Jozef Gallo, Sophia Halasova, Matus Paska
-# @brief Handling of math expressions
+'''
+ @file ivsmath.py
+ @authors Jozef Gallo, Sophia Halasova, Matus Paska
+ @brief Handling of math expressions
+'''
 
 class InvalidRadical(Exception):
     "Raised when there is number < 0 under even radical"
