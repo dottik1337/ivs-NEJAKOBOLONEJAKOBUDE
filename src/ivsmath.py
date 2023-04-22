@@ -1,14 +1,11 @@
-##
-# @file ivsmath.py
-# @authors Jozef Gallo, Sophia Halasova, Matus Paska
-# @brief Handling of math expressions
+""" Math library for calculator Numbo"""
+
 
 class InvalidRadical(Exception):
-    "Raised when there is number < 0 under even radical"
+    """Raised when there is number < 0 under even radical"""
 
 class Precedence():
-    """
-    @brief Precedence enum
+    """Precedence enum
     contains operators and their precedence 
     """
     PLUS = 1
@@ -22,8 +19,7 @@ class Precedence():
     BRACKET = 5
 
 class Operator():
-    """
-    @brief Operator class for comparing precedences
+    """Operator class for comparing precedences
     """
 
     def __init__(self, char):
@@ -49,8 +45,6 @@ class Operator():
         elif self.char == "(" or ")":
             return Precedence.BRACKET
         else:
-            #print(self.char)
-            #print("error Operator.get_eval")
             return 0
 
     def __le__(self, other):
@@ -63,11 +57,13 @@ class Operator():
 
 
 def get_infix(string):
-    """
-    @brief It takes a string and returns the infix expression.
+    """It takes a string and returns the infix expression.
 
-    @param string The string to be converted to infix
-    @return infix list
+    Args:
+        string (str): The string to be converted to infix
+
+    Returns:
+        list: infix list
     """
     infix = []
     number = ""
@@ -85,7 +81,6 @@ def get_infix(string):
                 number = ""
             infix.append(char)
         else:
-            #print("Error get_infix")
             raise ValueError
     if number != "":
         infix.append(float(number))
@@ -93,11 +88,13 @@ def get_infix(string):
 
 
 def get_postfix(infix):
-    """
-    @brief It converts infix to postfix
+    """It converts infix to postfix
 
-    @param infix The infix expression to be converted to postfix
-    @return postfix list
+    Args:
+        infix (list): The infix expression to be converted to postfix
+
+    Returns:
+        list: postfix list
     """
     postfix = []
     stack = []
@@ -120,27 +117,28 @@ def get_postfix(infix):
 
 
 def division(a, b):
-    """
-    @brief It divides b by a
+    """It divides b by a
 
-    @param a The number to divide by
-    @param b The first number
-    @returns @p b / @p a
+    Args:
+        a (float): The number to divide by
+        b (float): The first number
+    Returns:
+        float: Division of the given numbers
     """
     if a == 0:
-        #print("Division by zero")
         raise ValueError
     else:
         return b/a
 
 
 def radical(a, b):
-    """
-    @brief It calculates the radical.
+    """It calculates the radical.
 
-    @param b The index
-    @param a The radicand
-    @return the @p a root of @p b
+    Args:
+        b (float): The index
+        a (float): The radicand
+    Returns:
+        float: The a root of b
     """
     if b%2 == 0 and a < 0:
         raise InvalidRadical
@@ -151,17 +149,17 @@ def radical(a, b):
 
 
 def factorial(a):
-    """
-    @brief It calculates the factorial.
+    """It calculates the factorial.
 
-    @param a The number to find the factorial of
-    @return factorial of @p a
+    Args:
+        a (float): The number to find the factorial of
+
+    Returns:
+        int: Factorial of a
     """
     if a % 1 != 0 or a < 0:
-        #print("Value error in factorial function")
         raise ValueError
     elif a > 170:  # max number that can be calculated using this algorithm
-        #print("Value error in factorial function")
         raise ValueError
     sum = 1
     for i in range(2, int(a)+1):
@@ -169,20 +167,24 @@ def factorial(a):
     return sum
 
 def power(a,b):
-    """
-    @brief It returns the value of a to the power of b.
+    """It returns the value of a to the power of b.
     
-    @param a exponent
-    @param b the base
+    Args:
+        a (float): The exponent
+        b (float): The base
+    Returns:
+        float: a to the power of b
     """
     return b**a
 
 def sin(x):
-    """
-    @brief The function calculates the sine of an angle in degrees using the Taylor series approximation.
-    
-    @param x The input angle in degrees for which the sine value needs to be calculated.
-    @return the sine value of the input angle in radians, rounded to 10 decimal places.
+    """The function calculates the sine of an angle in degrees using the Taylor series approximation.
+
+    Args:
+        x (float): The input angle in degrees for which the sine value needs to be calculated.
+
+    Returns:
+        float: The sine value of the input angle in radians, rounded to 10 decimal places.
     """
     pi = 3.14159265359
     x = (x * pi) / 180
@@ -201,11 +203,11 @@ def sin(x):
     return round(result,10)
 
 def handle_operation(stack, operator):
-    """
-    @brief It handles the operations for evaluate_postfix
+    """It handles the operations for evaluate_postfix
 
-    @param stack a list of numbers
-    @param operator The operator to be applied to the stack.
+    Args:
+        stack (list): List of numbers
+        operator (list): The operator to be applied to the stack.
     """
     if operator == "+":
         tmp = stack.pop() + stack.pop()
@@ -230,11 +232,13 @@ def handle_operation(stack, operator):
 
 
 def evaluate_postfix(postfix):
-    """
-    @brief It evaluates a postfix expression.
+    """It evaluates a postfix expression.
 
-    @param postfix a list of postfix epression
-    @return float result
+    Args:
+        postfix (str): List of postfix epression
+
+    Returns:
+        float: Result
     """
     stack = []
     for i in postfix:
@@ -245,13 +249,14 @@ def evaluate_postfix(postfix):
     return stack.pop()
 
 def format_expr(x):
-    """
-    @brief The function formats a given number by limiting the number of digits before and after the decimal
+    """The function formats a given number by limiting the number of digits before and after the decimal
     point and converting it to scientific notation if necessary.
     
-    @param x The input value that needs to be formatted
-    
-    @return The function `format_expr` returns a formatted version of the input `x`
+    Args:
+        x (float): The input value that needs to be formatted
+
+    Returns:
+        str: Formatted version of the input `x`
     """
     MAX_N_LEN=1000000000000000000000
     if(x - int(x) == 0.0):
@@ -262,11 +267,13 @@ def format_expr(x):
 
 
 def evaluate_expression(expression):
-    """
-    @brief It evaluates the expression
+    """It evaluates the expression
 
-    @param expression The math expression to evaluate
-    @return result
+    Args:
+        expression (str): The math expression to evaluate
+
+    Returns:
+        (str): Result
     """
     try:
         infix = get_infix(expression)
