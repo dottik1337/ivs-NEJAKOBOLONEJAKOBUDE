@@ -1,3 +1,5 @@
+"""Program for profiling stddev.py"""
+
 #!/usr/bin/env python3
 import cProfile
 import pstats
