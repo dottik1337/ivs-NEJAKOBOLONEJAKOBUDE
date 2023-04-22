@@ -1,3 +1,5 @@
+""" Profiler for standard deviation."""
+
 #!/usr/bin/env python3
 import cProfile
 import pstats
