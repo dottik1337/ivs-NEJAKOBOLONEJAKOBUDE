@@ -416,8 +416,7 @@ class Ui_Calculator(object):
                     newbuffer+=buffer[i]
             buffer = newbuffer
             newbuffer = ''
-            zatvorka = False  
-            print(buffer)      
+            zatvorka = False       
             for i in range(0, len(buffer),1):
                 #print(zatvorka)
                 if zatvorka == True and buffer[i] in ['+', '-', '*', '/']:
@@ -447,8 +446,7 @@ class Ui_Calculator(object):
                          newbuffer+='-'
                     
                 else:
-                    newbuffer+=buffer[i]
-            print(newbuffer)        
+                    newbuffer+=buffer[i]       
             prava = 0
             lava = 0
             for i in range(0, len(newbuffer),1):
