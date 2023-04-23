@@ -8,9 +8,9 @@ Súčasťou repozitára je aj program na výpočet smerodajnej odýchlky.
 
 ## Autori
 
-Jozef Gallo     <xgallo06@stud.fit.vutbr.cz>
-Sophia Halásová <xhalas14@stud.fit.vutbr.cz>
-Matúš Paška     <xpaska05@stud.fit.vutbr.cz>
+- Jozef Gallo     <xgallo06@stud.fit.vutbr.cz>
+- Sophia Halásová <xhalas14@stud.fit.vutbr.cz>
+- Matúš Paška     <xpaska05@stud.fit.vutbr.cz>
 
 ## Návod k inštalacii
 
