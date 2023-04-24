@@ -839,7 +839,7 @@ class Ui_Calculator(object):
     def retranslateUi(self, Calculator):
         _translate = QtCore.QCoreApplication.translate
         Calculator.setWindowTitle(_translate("Calculator", "Calculator"))
-        Calculator.setWindowIcon(QtGui.QIcon('../icon.png'))
+        Calculator.setWindowIcon(QtGui.QIcon('icon.png'))
         self.label.setText(_translate("Calculator", ""))
         self.button1.setText(_translate("Calculator", "1"))
         self.button1.setShortcut("1")
