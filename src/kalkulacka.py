@@ -1,10 +1,5 @@
+""" GUI for Numbo calculator"""
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'finishcalc.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -47,11 +42,11 @@ class Ui_Calculator(object):
         def superscript(p):
             """
                 @ brief function converts a number to its superscript
-                @ param intiger the number that wants to be converted to superscipt 
+                @ param intiger the number that wants to be converted to superscipt
             """
             superscripts = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹",]
             return ''.join([superscripts[int(char)] for char in str(p)])
-        
+
         def funkcia(cislo):
             """
             @ brief function adds a number to the buffer and displays the new buffer in the calculator
@@ -421,8 +416,7 @@ class Ui_Calculator(object):
                     newbuffer+=buffer[i]
             buffer = newbuffer
             newbuffer = ''
-            zatvorka = False  
-            print(buffer)      
+            zatvorka = False       
             for i in range(0, len(buffer),1):
                 #print(zatvorka)
                 if zatvorka == True and buffer[i] in ['+', '-', '*', '/']:
@@ -452,8 +446,7 @@ class Ui_Calculator(object):
                          newbuffer+='-'
                     
                 else:
-                    newbuffer+=buffer[i]
-            print(newbuffer)        
+                    newbuffer+=buffer[i]       
             prava = 0
             lava = 0
             for i in range(0, len(newbuffer),1):

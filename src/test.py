@@ -54,7 +54,7 @@ def test_evaluate_expression_errors():
 
     expr = "2r(-1)"
     result = ivsmath.evaluate_expression(expr)
-    assert result == "Math error - invalid radical function" 
+    assert result == "Math error" 
 
 
 def test_evaluate_expression_parenthersis():
@@ -89,7 +89,7 @@ def test_evaluate_expression_hardcore():
 
     expr = "((2r((5+5)-(2^8)*0.5)/1.5)-420"
     result = ivsmath.evaluate_expression(expr)
-    assert result == "Math error - invalid radical function"
+    assert result == "Math error"
 
     expr = "2/(3.9*(2r(4+(s(5+5.3)*2.7)/79)))"
     result = ivsmath.evaluate_expression(expr)

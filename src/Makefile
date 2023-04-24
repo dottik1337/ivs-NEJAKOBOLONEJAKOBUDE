@@ -13,7 +13,7 @@ test:
 	pytest test.py
 
 doc:
-	@echo "to be added"
+	doxygen Doxyfile
 
 run:
 	$(CC) kalkulacka.py
