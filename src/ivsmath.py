@@ -282,7 +282,7 @@ def evaluate_expression(expression):
     except ZeroDivisionError:
         return "Division by zero"
     except InvalidRadical:
-        return "Math error - invalid radical function"
+        return "Math error"
     except:
         return "Math Error"
     return format_expr(eval)
