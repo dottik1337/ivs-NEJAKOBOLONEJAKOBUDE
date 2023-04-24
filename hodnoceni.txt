@@ -1,0 +1,3 @@
+xgallo06 100 (matematická knižnica, inštalačky, Makefile, testy)
+xhalas14 100 (dokumentácia, profiling, príručka)
+xpaska05 100 (GUI, mockup)

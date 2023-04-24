@@ -1,0 +1,10 @@
+xgallo06: matematická knižnica, inštalačky, Makefile, testy,
+xhalas14: dokumentácia, profiling, príručka,
+xpaska05: GUI, mockup,
+
+Demokracia fungovala podľa plánu. V našom tíme väčšinu času bola pohodová atmosféra. V prípade problému sme si vždy boli ochotní navzájom pomôcť.
+Relatívne sme sa držali podľa plánu ale niektoré veci ako napríklad inštalácia a ladenie gui nám zabrali dlhšie ako sme plánovali.
+Sme radi za všetky skúsenosti, ktoré sme na tomto projekte získali.
+
+S pozdravom,
+tím NEJAKOBOLONEJAKOBUDE <3
