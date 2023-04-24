@@ -1,0 +1,12 @@
+43455.69105725018
+         28534 function calls in 0.004 seconds
+
+   Ordered by: internal time
+   List reduced from 19 to 3 due to restriction <'ivsmath.py'>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     2000    0.000    0.000    0.000    0.000 ivsmath.py:169(power)
+        2    0.000    0.000    0.000    0.000 ivsmath.py:119(division)
+        1    0.000    0.000    0.000    0.000 ivsmath.py:134(radical)
+
+
